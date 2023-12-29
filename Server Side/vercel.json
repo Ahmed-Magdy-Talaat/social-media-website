@@ -1,16 +1,20 @@
 {
- "version": 2,
- "builds": [
-  {
-   "src": "app.js",
-   "use": "@vercel/node",
-   "config": { "includeFiles": ["dist/**"] }
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "index.js"
+    }
+  ],
+  "env": {
+    "Mongodb_Url": "mongodb+srv://ahmedmagdy2592002:WFsHoyJ4VDY4PBkR@cluster1.lgqks6l.mongodb.net/?retryWrites=true&w=majority",
+    "PORT": 4000,
+    "JWT_SECRET": "a434c863f8cf2dda64fb4311436b25cf8f38f44ad77e7f74902f2a81d1950038"
   }
- ],
- "routes": [
-  {
-   "src": "/(.*)",
-   "dest": "index.js"
-  }
- ]
 }
