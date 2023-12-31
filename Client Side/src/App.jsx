@@ -22,6 +22,7 @@ function App() {
       <div>
         <Toaster />
       </div>
+      <BrowserRouter>
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/sign-in" element={<SigninForm />} />
@@ -40,6 +41,7 @@ function App() {
           <Route path="/update-profile/:id" element={<EditProfile />} />
         </Route>
       </Routes>
+      </BrowserRouter>
     </main>
   );
 }
