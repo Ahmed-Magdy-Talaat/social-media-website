@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./globals.css";
 import SignupForm from "./Components/Forms/SignupForm.jsx";
 import SigninForm from "./Components/Forms/SigninForm.jsx";
