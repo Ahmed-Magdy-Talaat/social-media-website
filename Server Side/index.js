@@ -20,18 +20,26 @@ import { updateUser } from "./Controllers/userController.js";
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 dotenv.config();
 const app = express();
+const corsOptions = {
+  origin: ['http://localhost:5173', 'https://social-media-website-beta.vercel.app'],
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 export const Port = process.env.PORT || 3000;
+
 /* file storage */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -43,6 +51,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+// Handling Preflight Requests
+app.options('*', cors(corsOptions));
+
 app.post("/posts", verifyAuthorization, upload.single("photo"), createPost);
 app.put("/posts/:id", verifyAuthorization, upload.single("photo"), updatePost);
 app.put("/users", verifyAuthorization, upload.single("photo"), updateUser);
@@ -52,14 +63,14 @@ app.use("/saves", verifyAuthorization, saveRouter);
 app.use("/users", verifyAuthorization, userRouter);
 app.use("/follow", verifyAuthorization, followRouter);
 
-/*Routes With Files */
+/* Routes With Files */
 
-/*mongoose*/
-
+/* mongoose */
 mongoose
   .connect(process.env.Mongodb_Url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .catch((err) => console.log(`${err} Connection Failed`));
+
 app.listen(Port, () => console.log(`listening to port ${Port}`));
