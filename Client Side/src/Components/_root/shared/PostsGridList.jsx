@@ -3,13 +3,11 @@ import LikesAndSaves from "./LikesAndSaves";
 import { useContext } from "react";
 import UserContext from "../../../Contexts/User/UserContext";
 
-
-function PostsGridList({ posts }) {
+function PostsGridList({ profile, posts }) {
   const { user } = useContext(UserContext);
   // console.log(posts);
   return (
-
-<ul className="grid-container gap-5">
+    <ul className="grid-container gap-5">
       {posts.map((post) => (
         <li key={post._id} className="relative min-w-72 h-80">
           <Link to={`/posts/${post._id}`} className="grid-post_link">
@@ -24,10 +22,10 @@ function PostsGridList({ posts }) {
             <div className="flex items-center justify-start gap-2 flex-1">
               <img
                 src={
-                  post.creator.imageUrl !== undefined
+                  profile === undefined
                     ? post.creator.imageUrl ||
                       "/assets/icons/profile-placeholder.svg"
-                    : user.imageUrl
+                    : profile.imageUrl
                 }
                 alt="creator"
                 className="w-8 h-8 rounded-full"
@@ -40,7 +38,6 @@ function PostsGridList({ posts }) {
         </li>
       ))}
     </ul>
- 
   );
 }
 
