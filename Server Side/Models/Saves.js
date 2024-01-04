@@ -4,7 +4,7 @@ import Post from "./Posts.js";
 
 const saveSchema = mongoose.Schema(
   {
-    creator: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
