@@ -3,7 +3,11 @@ import * as pc from "../Controllers/postController.js";
 
 const router = express.Router();
 
-router.route("/").get(pc.getPostFeeds).patch(pc.updatePostLikes);
+router
+  .route("/")
+  .post(pc.createPost)
+  .get(pc.getPostFeeds)
+  .patch(pc.updatePostLikes);
 
 router.route("/:id").put(pc.updatePost).delete(pc.deletePost);
 

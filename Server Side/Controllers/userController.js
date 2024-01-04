@@ -1,5 +1,6 @@
 import User from "../Models/Users.js";
 import { handleError } from "./shared/sharedFunctions.js";
+import { uploadStream } from "../utils/Cloudinary.js";
 
 export const getCurrentUser = async (req, res) => {
   const id = req.user.id;
@@ -46,7 +47,7 @@ export const updateUser = async (req, res) => {
   try {
     const updatedFields = { Name, bio };
     if (req.file) {
-      updatedFields.imageUrl = `http://localhost:4000/assets/${req.file.filename}`;
+      updatedFields.imageUrl = await uploadStream(req.file.buffer);
     }
 
     const user = await User.findByIdAndUpdate(

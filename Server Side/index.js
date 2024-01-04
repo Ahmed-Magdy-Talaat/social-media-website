@@ -7,6 +7,7 @@ import path from "path";
 import dotenv from "dotenv";
 import multer from "multer";
 import mongoose from "mongoose";
+import cloudinary from "cloudinary";
 import { fileURLToPath } from "url";
 import authenicationRouter from "./Routes/authenicationRoute.js";
 import userRouter from "./Routes/userRoute.js";
@@ -16,7 +17,6 @@ import { createPost, updatePost } from "./Controllers/postController.js";
 import saveRouter from "./Routes/saveRoute.js";
 import followRouter from "./Routes/followRoute.js";
 import { updateUser } from "./Controllers/userController.js";
-
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,10 +24,20 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://social-media-website-beta.vercel.app'],
+  origin: [
+    "http://localhost:5173",
+    "https://social-media-website-beta.vercel.app",
+  ],
   optionsSuccessStatus: 200,
   credentials: true,
 };
+
+// Cloudinary Configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -41,18 +51,11 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 export const Port = process.env.PORT || 3000;
 
 /* file storage */
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/assets");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-const upload = multer({ storage });
+const storage = multer.memoryStorage();
+export const upload = multer({ storage });
 
 // Handling Preflight Requests
-app.options('*', cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 app.post("/posts", verifyAuthorization, upload.single("photo"), createPost);
 app.put("/posts/:id", verifyAuthorization, upload.single("photo"), updatePost);

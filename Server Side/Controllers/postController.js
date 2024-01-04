@@ -1,17 +1,17 @@
 import Post from "../Models/Posts.js";
 import { handleError } from "./shared/sharedFunctions.js";
 import Comment from "../Models/Comments.js";
-import { Port } from "../index.js";
 import Save from "../Models/Saves.js";
 import User from "../Models/Users.js";
+import { uploadStream } from "../utils/Cloudinary.js";
 
 export const createPost = async (req, res) => {
   const id = req.user.id;
   const { caption, tags, comments, likes } = req.body;
-  const imageUrl = `http://localhost:4000/assets/${req.file.filename}`;
-  console.log(imageUrl);
-
+  const imageUrl = await uploadStream(req.file.buffer);
   try {
+    console.log("Uploaded image:", imageUrl);
+
     const newPost = new Post({
       creator: id,
       caption,
@@ -20,6 +20,9 @@ export const createPost = async (req, res) => {
       likes,
       imageUrl,
     });
+
+    console.log("New post:", newPost);
+
     const post = await newPost.save();
 
     res.status(200).json({
@@ -28,10 +31,9 @@ export const createPost = async (req, res) => {
         post,
       },
     });
-    console.log(post);
-  } catch (err) {
-    handleError(res, err);
-    console.log(err);
+  } catch (error) {
+    console.error("Error creating post:", error);
+    handleError(res, error);
   }
 };
 
@@ -44,6 +46,7 @@ export const getPostFeeds = async (req, res) => {
       data: { posts },
     });
   } catch (err) {
+    console.log(err);
     handleError(res, err);
   }
 };
@@ -129,14 +132,12 @@ export const updatePostLikes = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-  const { caption, tags, photo } = req.body;
+  const { caption, tags } = req.body;
   const id = req.params.id;
   console.log(id);
   let imageUrl = "";
-  console.log(photo);
-  if (photo != undefined)
-    imageUrl = `http://localhost:4000/assets/${req.file.filename}`;
-  console.log(imageUrl, caption, tags);
+  if (req.file) imageUrl = await uploadStream(req.file.buffer);
+
   try {
     let post;
     if (imageUrl !== "") {
