@@ -15,9 +15,9 @@
   "env": {
     "Mongodb_Url": "mongodb+srv://ahmedmagdy2592002:WFsHoyJ4VDY4PBkR@cluster1.lgqks6l.mongodb.net/?retryWrites=true&w=majority",
     "PORT": "4000",
-    "JWT_SECRET": "a434c863f8cf2dda64fb4311436b25cf8f38f44ad77e7f74902f2a81d1950038"
-    "CLOUDINARY_CLOUD_NAME":"dbffu1nlr"
-    "CLOUDINARY_API_KEY":"221953419366331"
+    "JWT_SECRET": "a434c863f8cf2dda64fb4311436b25cf8f38f44ad77e7f74902f2a81d1950038",
+    "CLOUDINARY_CLOUD_NAME":"dbffu1nlr",
+    "CLOUDINARY_API_KEY":"221953419366331",
     "CLOUDINARY_API_SECRET":"v_UKyGdxDE9HmvS3rC_w_ADWiMg"
   }
 }
