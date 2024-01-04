@@ -1,1 +1,1 @@
-export const BaseUrl = "http://localhost:4000";
+export const BaseUrl = "https://social-media-website-api.vercel.app";
