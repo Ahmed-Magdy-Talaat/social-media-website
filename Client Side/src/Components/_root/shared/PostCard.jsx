@@ -1,28 +1,31 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../../../Contexts/User/UserContext";
 import { formatDate } from "../../../utils";
 import LikesAndSaves from "./LikesAndSaves";
+import { getUserById } from "../../../API/User";
 
 function PostCard({ post }) {
-  const { user, setUser } = useContext(UserContext);
   const { caption, imageUrl, tags } = post;
-
+  const { user } = useContext(UserContext);
   return (
     <>
       <div className="post-card">
         <div className="flex flex-between pb-5">
           <div className="flex items-center gap-3">
-            <Link to={`/profile/${user._id}`}>
+            <Link to={`/profile/${post.creator._id}`}>
               <img
-                src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
+                src={
+                  post.creator.imageUrl ||
+                  "/assets/icons/profile-placeholder.svg"
+                }
                 className="rounded-full w-12 lg:h-12"
                 alt="creator"
               />
             </Link>
             <div className="flex flex-col">
               <p className="base-medium lg:body-bold text-light-1">
-                {user.Name}
+                {post.creator.Name}
               </p>
               <p className="subtle-semibold lg:small-regular">
                 {formatDate(post.createdAt)}
