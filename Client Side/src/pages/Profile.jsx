@@ -145,7 +145,7 @@ function Profile() {
         </div>
       </div>
       <div className="mt-6">
-        <PostsGridList  posts={posts} />
+        <PostsGridList profile={profile} posts={posts} />
       </div>
     </div>
   );
