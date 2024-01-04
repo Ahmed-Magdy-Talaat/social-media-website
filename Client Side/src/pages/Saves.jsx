@@ -47,20 +47,18 @@ function Saves() {
       </div>
 
       <div className="home-creators ">
-        <div className="fixed w-56">
-          <h3 className="h3-bold text-light-1 mb-5">Top Creators</h3>
-          {isUserLoading && !creators ? (
-            <Loader type="spinner-default" size={70} />
-          ) : (
-            <ul className="grid 2xl:grid-cols-2 gap-6">
-              {creators?.map((creator) => (
-                <li key={creator?._id}>
-                  <UserCard user={creator} />
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <h3 className="h3-bold text-light-1 mb-5">Top Creators</h3>
+        {isUserLoading && !creators ? (
+          <Loader type="spinner-default" size={70} />
+        ) : (
+          <ul className="grid 2xl:grid-cols-2 gap-6">
+            {creators?.map((creator) => (
+              <li key={creator?._id}>
+                <UserCard user={creator} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
