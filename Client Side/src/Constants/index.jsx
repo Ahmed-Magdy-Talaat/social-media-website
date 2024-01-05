@@ -42,6 +42,11 @@ export const bottombarLinks = [
     route: "/saved",
     label: "Saved",
   },
+    {
+    imgURL: "/assets/icons/people.svg",
+    route: "/all-users",
+    label: "People",
+  },
   {
     imgURL: "/assets/icons/gallery-add.svg",
     route: "/create-post",
