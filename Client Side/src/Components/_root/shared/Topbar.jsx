@@ -28,7 +28,7 @@ function Topbar() {
             <img src="/assets/icons/logout.svg" alt="logout" />
           </button>
 
-          <Link to={`/profile/${user.id}`} className="flex-center gap-3">
+          <Link to={`/profile/${user._id}`} className="flex-center gap-3">
             <img
               src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
               className="w-8 h-8 rounded-full"
