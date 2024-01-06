@@ -22,7 +22,7 @@ function RootLayout() {
   return token ? (
     <div className="w-screen">
       <Topbar />
-      <div className="w-full flex flex-row gap-0 md:flex">
+      <div className="w-98 flex flex-row gap-0 md:flex">
         <div className="md:min-w-[270px] sm:w-0">
           <LeftSidebar />
         </div>
