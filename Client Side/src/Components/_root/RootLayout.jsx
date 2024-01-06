@@ -20,7 +20,7 @@ function RootLayout() {
   }, []);
 
   return token ? (
-    <div className="w-98">
+    <div className="w-98 overflow-x-hidden">
       <Topbar />
       <div className="w-full flex flex-row gap-0 md:flex">
         <div className="md:min-w-[270px] sm:w-0 overflow-x-hidden">
