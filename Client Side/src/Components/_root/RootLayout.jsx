@@ -23,10 +23,10 @@ function RootLayout() {
     <div className="w-screen">
       <Topbar />
       <div className="w-98 flex flex-row gap-0 md:flex">
-        <div className="md:min-w-[270px] sm:w-0">
+        <div className="md:min-w-[270px] sm:w-0 overflow-x-hidden">
           <LeftSidebar />
         </div>
-        <div className="flex flex-1 h-full mb-10">
+        <div className="flex flex-1 h-full mb-10 overflow-x-hidden">
           <Outlet />
         </div>
         <BottomBar />
