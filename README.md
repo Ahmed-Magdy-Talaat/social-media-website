@@ -18,7 +18,7 @@
   <h3 align="center">SnapGram 📸</h3>
 
   <p align="center">
-    A vibrant social app to share your moments and connect with friends.
+    A modern social media app to share your moments, posts and connect with friends.
     <br />
     <a href="https://github.com/Ahmed-Magdy-Talaat/social-media-website"><strong>Explore the project »</strong></a>
     <br />
