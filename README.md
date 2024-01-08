@@ -12,7 +12,7 @@
 <div align="center">
   <a href="https://github.com/your-username/snapgram">
     <!-- Replace the path with your SnapGram logo -->
-    <img src="Client Side/public/assets/images/logo.svg" alt="Logo" width="80" height="80">
+    <img src="Client Side/public/assets/images/logo.svg" alt="Logo" width="180" height="180">
   </a>
 
   <h3 align="center">SnapGram 📸</h3>
