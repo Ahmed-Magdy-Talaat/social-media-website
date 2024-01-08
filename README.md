@@ -23,7 +23,7 @@
     <a href="https://github.com/Ahmed-Magdy-Talaat/social-media-website"><strong>Explore the project »</strong></a>
     <br />
     <br />
-    <a href="social-media-website-beta.vercel.app/">View Demo</a>
+    <a href="https://social-media-website-beta.vercel.app/">View Demo</a>
     ·
     <a href="https://github.com/Ahmed-Magdy-Talaat/social-media-website/issues">Report Bug</a>
     ·
