@@ -132,9 +132,8 @@ Discover new and trending posts from the SnapGram community on the explore page.
 
 1. Click on the "+" icon to create a new post.
 2. Snap or choose a photo from your gallery. 📷
-3. Use the editing tools to enhance your photo. 🎨
-4. Add a caption and hashtags.
-5. Click "Post" to share your creation with the world! 🌍
+3. Add a caption and hashtags.
+4. Click "Post" to share your creation with the world! 🌍
 
 <!-- Following People -->
 ## Following People
@@ -161,7 +160,7 @@ Discover new and trending posts from the SnapGram community on the explore page.
 <!-- Feedback and Support -->
 ## Feedback and Support
 
-We value your feedback! If you encounter any issues or have suggestions, contact our support team at ozgurdemirbacak9@gmail.com. 💌
+We value your feedback! If you encounter any issues or have suggestions, contact our support team at ahmedmagdy2592002@gmail.com 💌
 
 <!-- Contributing -->
 ## Contributing
