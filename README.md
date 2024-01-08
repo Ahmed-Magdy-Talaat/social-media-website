@@ -10,9 +10,9 @@
 
 <!-- Project Shields -->
 <div align="center">
-  <a href="https://github.com/your-username/snapgram">
+  <a href="https://github.com/Ahmed-Magdy-Talaat/social-media-website">
     <!-- Replace the path with your SnapGram logo -->
-    <img src="Client Side/public/assets/images/logo.svg" alt="Logo" width="120" height="120">
+    <img src="Client Side/public/assets/images/logo.svg" alt="Logo" width="180" height="180">
   </a>
 
   <h3 align="center">SnapGram 📸</h3>
@@ -87,13 +87,13 @@ SnapGram is a fully responsive social app designed to connect you with your frie
 1. Clone the repository to your local machine.
 
     ```sh
-    git clone https://github.com/your-username/snapgram.git
+    git clone https://github.com/Ahmed-Magdy-Talaat/social-media-website.git
     ```
 
 2. Navigate to the project directory.
 
     ```sh
-    cd snapgram
+    cd social-media-website
     ```
 
 3. Install dependencies.
