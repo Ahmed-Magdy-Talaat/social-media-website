@@ -65,7 +65,7 @@
 
 SnapGram is a fully responsive social app designed to connect you with your friends and the world. Share your life's moments through photos, engage with others, and explore a community filled with creativity.
 
-![SnapGram Screenshot](./ClientSide/to/screenshot.png)
+![SnapGram Screenshot](./Client Side/public/assets/images/logo.svg)
 
 <!-- Features -->
 ## Features
