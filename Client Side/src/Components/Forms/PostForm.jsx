@@ -25,7 +25,7 @@ const PostForm = ({ initialValues, action }) => {
       imageUrl: initialValues.imageUrl,
       photo: initialValues.photo || null,
       bio: initialValues.bio || "",
-      tags: initialValues.tags || "",
+      tags: initialValues.tags.split(',') || [],
     },
     validationSchema,
     onSubmit: async (values) => {
