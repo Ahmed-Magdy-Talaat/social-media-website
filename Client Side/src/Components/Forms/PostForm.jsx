@@ -32,7 +32,9 @@ const PostForm = ({ initialValues, action }) => {
       const tagsArray = values.tags.split(",").map((tag) => tag.trim());
       const formData = new FormData();
       formData.append("caption", values.caption);
-      formData.append("tags",tagsArray||[]);
+      tagsArray.forEach((tag, index) => {
+        formData.append(`tags[${index}]`, tag);
+      });
       formData.append("photo", values.photo);
       formData.append("bio", values.bio);
       formData.append("creator", user?._id);
