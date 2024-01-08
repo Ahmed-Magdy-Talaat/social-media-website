@@ -20,7 +20,7 @@
   <p align="center">
     A vibrant social app to share your moments and connect with friends.
     <br />
-    <a href="https://github.com/Ahmed-Magdy-Talaat/social-media-website"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Ahmed-Magdy-Talaat/social-media-website"><strong>Explore the project »</strong></a>
     <br />
     <br />
     <a href="https://github.com/Ahmed-Magdy-Talaat/social-media-website">View Demo</a>
