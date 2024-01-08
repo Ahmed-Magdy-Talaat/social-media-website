@@ -159,7 +159,7 @@ Discover new and trending posts from the SnapGram community on the explore page.
 <!-- Feedback and Support -->
 ## Feedback and Support
 
-We value your feedback! If you encounter any issues or have suggestions, contact our support team at ahmedmagdy2592002@gmail.com 💌
+We value your feedback! If you encounter any issues or have suggestions, contact me at ahmedmagdy2592002@gmail.com 💌
 
 <!-- Contributing -->
 ## Contributing
