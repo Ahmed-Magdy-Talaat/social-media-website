@@ -25,13 +25,13 @@ const PostForm = ({ initialValues, action }) => {
       imageUrl: initialValues.imageUrl,
       photo: initialValues.photo || null,
       bio: initialValues.bio || "",
-      tags: initialValues.tags.split(',') || [],
+      tags: initialValues.tags || "",
     },
     validationSchema,
     onSubmit: async (values) => {
       const formData = new FormData();
       formData.append("caption", values.caption);
-      formData.append("tags", values.tags);
+      formData.append("tags", values.tags.split(",");
       formData.append("photo", values.photo);
       formData.append("bio", values.bio);
       formData.append("creator", user?._id);
