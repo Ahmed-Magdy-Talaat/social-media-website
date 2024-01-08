@@ -29,9 +29,10 @@ const PostForm = ({ initialValues, action }) => {
     },
     validationSchema,
     onSubmit: async (values) => {
+      const tagsArray = values.tags.split(",").map((tag) => tag.trim());
       const formData = new FormData();
       formData.append("caption", values.caption);
-      formData.append("tags", values.tags.split(",");
+      formData.append("tags",tagsArray||[]);
       formData.append("photo", values.photo);
       formData.append("bio", values.bio);
       formData.append("creator", user?._id);
