@@ -1,4 +1,22 @@
-export function formatDate(timestamp = "") {
+export function formatDateString(dateString) {
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString("en-US", options);
+
+  const time = date.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+
+  return `${formattedDate} at ${time}`;
+}
+
+export const multiFormatDateString = (timestamp = "") => {
   const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);
   const date = new Date(timestampNum * 1000);
   const now = new Date();
@@ -11,7 +29,7 @@ export function formatDate(timestamp = "") {
 
   switch (true) {
     case Math.floor(diffInDays) >= 30:
-      return formatDateString(date);
+      return formatDateString(timestamp);
     case Math.floor(diffInDays) === 1:
       return `${Math.floor(diffInDays)} day ago`;
     case Math.floor(diffInDays) > 1 && diffInDays < 30:
@@ -23,11 +41,4 @@ export function formatDate(timestamp = "") {
     default:
       return "Just now";
   }
-}
-
-export function formatDateString(dateString: string) {
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  };
+};
