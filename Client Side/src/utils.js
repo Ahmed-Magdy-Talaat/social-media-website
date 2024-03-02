@@ -1,4 +1,4 @@
-export const formatDate = (timestamp = "") => {
+function formatDate(timestamp = "") {
   const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);
   const date = new Date(timestampNum * 1000);
   const now = new Date();
@@ -11,7 +11,7 @@ export const formatDate = (timestamp = "") => {
 
   switch (true) {
     case Math.floor(diffInDays) >= 30:
-      return formatDateString(timestamp);
+      return formatDateString(date);
     case Math.floor(diffInDays) === 1:
       return `${Math.floor(diffInDays)} day ago`;
     case Math.floor(diffInDays) > 1 && diffInDays < 30:
@@ -23,4 +23,9 @@ export const formatDate = (timestamp = "") => {
     default:
       return "Just now";
   }
-};
+}
+
+function formatDateString(date) {
+  // Basic implementation to format date string
+  return date.toDateString(); // You can replace this with any desired format
+}
