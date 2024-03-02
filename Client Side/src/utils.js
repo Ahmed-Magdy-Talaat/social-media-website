@@ -16,7 +16,7 @@ export function formatDateString(dateString) {
   return `${formattedDate} at ${time}`;
 }
 
-export const multiFormatDateString = (timestamp = "") => {
+export const formatDate = (timestamp = "") => {
   const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);
   const date = new Date(timestampNum * 1000);
   const now = new Date();
