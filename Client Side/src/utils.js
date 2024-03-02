@@ -1,4 +1,4 @@
-function formatDate(timestamp = "") {
+export function formatDate(timestamp = "") {
   const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);
   const date = new Date(timestampNum * 1000);
   const now = new Date();
@@ -25,7 +25,9 @@ function formatDate(timestamp = "") {
   }
 }
 
-function formatDateString(date) {
-  // Basic implementation to format date string
-  return date.toDateString(); // You can replace this with any desired format
-}
+export function formatDateString(dateString: string) {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
