@@ -8,7 +8,7 @@ export const createPost = async (values) => {
   try {
     await axios.post(`${BaseUrl}/posts`, values, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
         "Content-Type": "multipart/form-data",
       },
     });
@@ -31,7 +31,7 @@ export const updatePost = async (values, postId) => {
   try {
     await axios.put(`${BaseUrl}/posts/${postId}`, values, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
         "Content-Type": "multipart/form-data",
       },
     });
@@ -54,7 +54,7 @@ export const getAllPosts = async () => {
   try {
     const response = await axios.get(`${BaseUrl}/posts/`, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 
@@ -73,7 +73,7 @@ export const postLike = async (id) => {
       {},
       {
         headers: {
-          authorization: `${token}`,
+          authenication: `${token}`,
         },
       }
     );
@@ -88,7 +88,7 @@ export const getPostById = async (postId) => {
   try {
     const response = await axios.get(`${BaseUrl}/posts/search/?id=${postId}`, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 
@@ -104,7 +104,7 @@ export const deletePost = async (postId) => {
   try {
     const response = await axios.delete(`${BaseUrl}/posts/${postId}`, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 
@@ -136,7 +136,7 @@ export const getPostsForUser = async (userId) => {
       `${BaseUrl}/posts/user/?userId=${userId}`,
       {
         headers: {
-          authorization: `${token}`,
+          authenication: `${token}`,
         },
       }
     );

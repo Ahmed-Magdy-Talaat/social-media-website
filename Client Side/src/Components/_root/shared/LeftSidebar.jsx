@@ -31,7 +31,10 @@ function LeftSidebar() {
           className="flex flex-row pb-5 px-2  gap-5"
         >
           <img
-            src={user.imageUrl || `/assets/icons/profile-placeholder.svg`}
+            src={
+              (user.image && user?.image.url) ||
+              `/assets/icons/profile-placeholder.svg`
+            }
             className="h-12 w-12 rounded-full"
           />
           <div className="flex flex-col">

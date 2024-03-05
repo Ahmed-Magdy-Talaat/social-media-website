@@ -78,7 +78,10 @@ function Profile() {
       <div className="profile-inner_container">
         <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-7 w-full">
           <img
-            src={profile.imageUrl || "/assets/icons/profile-placeholder.svg"}
+            src={
+              (profile.image && profile.image.url) ||
+              "/assets/icons/profile-placeholder.svg"
+            }
             alt="profile"
             className="w-28 h-28 lg:h-30 lg:w-30 rounded-full"
           />

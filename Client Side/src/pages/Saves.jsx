@@ -33,7 +33,7 @@ function Saves() {
             <Loader type="spinner-default" size={100} />
           ) : (
             <div className="flex flex-col gap-9">
-              {saves &&
+              {saves.length > 0 &&
                 saves
                   .filter((save) =>
                     user.saves.find((id) => id.toString() === save.post._id)

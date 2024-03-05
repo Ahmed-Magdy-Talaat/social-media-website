@@ -22,7 +22,7 @@ const PostForm = ({ initialValues, action }) => {
     enableReinitialize: true,
     initialValues: {
       caption: initialValues.caption || "",
-      imageUrl: initialValues.imageUrl,
+      imageUrl: initialValues.image.url || "",
       photo: initialValues.photo || null,
       bio: initialValues.bio || "",
       tags: initialValues.tags || "",
@@ -30,6 +30,7 @@ const PostForm = ({ initialValues, action }) => {
     validationSchema,
     onSubmit: async (values) => {
       const tagsArray = values.tags.split(",").map((tag) => tag.trim());
+      console.log(tagsArray);
       const formData = new FormData();
       formData.append("caption", values.caption);
       tagsArray.forEach((tag, index) => {
@@ -42,6 +43,7 @@ const PostForm = ({ initialValues, action }) => {
       if (act === "create") {
         await createPost(formData);
       } else {
+        console.log(formData);
         await updatePost(formData, id);
       }
       navigate("/");

@@ -9,7 +9,7 @@ export const getAllFollowersAndFollowing = async (id) => {
   try {
     const response = await axios.get(`${BaseUrl}/follow/?id=${id}`, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 
@@ -28,7 +28,7 @@ export const checkFollow = async (followerId, followedId) => {
   try {
     const response = await axios.post(`${BaseUrl}/follow/check`, data, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 
@@ -48,7 +48,7 @@ export const handleFollow = async (followerId, followedId) => {
   try {
     const response = await axios.post(`${BaseUrl}/follow`, data, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 

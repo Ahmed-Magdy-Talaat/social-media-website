@@ -5,7 +5,7 @@ function CreatePost() {
     caption: "",
     tags: "",
     photo: null,
-    imagUrl: "",
+    image: {},
   };
   return (
     <div className="flex flex-1">

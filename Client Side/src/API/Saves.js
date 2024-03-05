@@ -11,7 +11,7 @@ export const updateSavedPost = async (postId) => {
       {},
       {
         headers: {
-          authorization: `${token}`,
+          authenication: `${token}`,
         },
       }
     );
@@ -36,7 +36,7 @@ export const getSaves = async () => {
   try {
     const response = await axios.get(`${BaseUrl}/saves`, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 

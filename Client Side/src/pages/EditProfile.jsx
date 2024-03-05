@@ -22,7 +22,7 @@ const UpdateProfile = () => {
     userName: user.userName,
     email: user.email,
     bio: user.bio || "",
-    imageUrl: user.imageUrl,
+    imageUrl: user.image ? user.image.url : "",
   };
 
   const formik = useFormik({
@@ -74,7 +74,6 @@ const UpdateProfile = () => {
 
         <form
           onSubmit={formik.handleSubmit}
-          initialValues={initialValues}
           className="flex flex-col gap-7 w-full mt-4 max-w-5xl"
         >
           <div className="flex flex-row gap-5 items-center">

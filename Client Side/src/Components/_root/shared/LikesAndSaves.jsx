@@ -7,10 +7,12 @@ import { updateSavedPost } from "../../../API/Saves";
 function LikesAndSaves({ post }) {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const { caption, comments, likes, imageUrl, tags } = post;
-  const [liked, setLiked] = useState(Boolean(likes[post.creator._id]));
+  const { caption, comments, likes, tags } = post;
+  const [liked, setLiked] = useState(Boolean(likes[user._id]));
   const [saved, setSaved] = useState(
-    user.saves.some((id) => id.toString() === post._id)
+    user.saves &&
+      user.saves.length > 0 &&
+      user.saves.some((id) => id.toString() === post._id)
   );
   const [likesNo, setLikesNo] = useState(Object.keys(likes).length);
 

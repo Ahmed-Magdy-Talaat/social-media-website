@@ -8,7 +8,7 @@ export const getUserData = async () => {
   try {
     const response = await axios.get(`${BaseUrl}/users`, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 
@@ -25,7 +25,7 @@ export const getAllUsers = async () => {
   try {
     const response = await axios.get(`${BaseUrl}/users/all`, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 
@@ -42,7 +42,7 @@ export const getUserById = async (id) => {
   try {
     const response = await axios.get(`${BaseUrl}/users/${id}`, {
       headers: {
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 
@@ -61,12 +61,13 @@ export const updateUser = async (values) => {
     bio,
     photo,
   };
+  console.log(values);
 
   try {
     const response = await axios.put(`${BaseUrl}/users`, user, {
       headers: {
         "Content-Type": "multipart/form-data",
-        authorization: `${token}`,
+        authenication: `${token}`,
       },
     });
 

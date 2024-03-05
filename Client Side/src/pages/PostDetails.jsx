@@ -43,7 +43,7 @@ function PostDetails() {
       ) : (
         <div className="post_details-card">
           <img
-            src={post?.imageUrl}
+            src={post?.image.url}
             alt="creator"
             className="post_details-img"
           />
@@ -53,10 +53,9 @@ function PostDetails() {
                 <Link to={`/profile/${post.creator?._id}`}>
                   <img
                     src={
-                      post.creator.imageUrl === ""
-                        ? post.creator.imageUrl ||
-                          "/assets/icons/profile-placeholder.svg"
-                        : user.imageUrl
+                      post.creator.image
+                        ? post.creator.image.url
+                        : "/assets/icons/profile-placeholder.svg"
                     }
                     className="rounded-full w-12 lg:h-12"
                     alt="creator"

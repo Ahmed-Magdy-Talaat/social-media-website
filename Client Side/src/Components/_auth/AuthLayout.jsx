@@ -13,8 +13,8 @@ function AuthLayout() {
             </section>
             <div className="w-1/2 hidden xl:block">
               <img
-                src="/assets/images/side-img.svg"
-                className=" w-full  object-cover h-screen bg-no-repeat"
+                src="/assets/images/hero.gif"
+                className=" w-[100%] bg-black  object-cover h-screen bg-no-repeat"
               ></img>
             </div>
           </div>

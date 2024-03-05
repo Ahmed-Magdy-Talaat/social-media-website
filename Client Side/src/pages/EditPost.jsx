@@ -8,7 +8,7 @@ function EditPost() {
   console.log(id);
   const [post, setPost] = useState({
     caption: "",
-    imageUrl: "",
+    image: {},
     tags: "",
   });
 
@@ -17,8 +17,8 @@ function EditPost() {
       try {
         const postResult = await getPostById(id);
         // console.log(postResult);
-        const { caption, tags, imageUrl } = postResult;
-        setPost({ caption, tags: tags.join(","), imageUrl });
+        const { caption, tags, image } = postResult;
+        setPost({ caption, tags: tags.join(","), image });
       } catch (error) {
         console.error("Error fetching post:", error);
       }
@@ -26,7 +26,6 @@ function EditPost() {
 
     fetchPost();
   }, [id]);
-
 
   return (
     <div className="flex flex-1">

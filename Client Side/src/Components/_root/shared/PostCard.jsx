@@ -6,7 +6,7 @@ import LikesAndSaves from "./LikesAndSaves";
 import { getUserById } from "../../../API/User";
 
 function PostCard({ post }) {
-  const { caption, imageUrl, tags } = post;
+  const { caption, image, tags } = post;
   const { user } = useContext(UserContext);
   return (
     <>
@@ -16,7 +16,7 @@ function PostCard({ post }) {
             <Link to={`/profile/${post.creator._id}`}>
               <img
                 src={
-                  post.creator.imageUrl ||
+                  (post.creator.image && post.creator?.image.url) ||
                   "/assets/icons/profile-placeholder.svg"
                 }
                 className="rounded-full w-12 lg:h-12"
@@ -53,7 +53,7 @@ function PostCard({ post }) {
             })}
           </ul>
         </div>
-        <img src={imageUrl} className="post_card-img pt-3" />
+        <img src={image.url} className="post_card-img pt-3" />
         <LikesAndSaves post={post} />
       </div>
     </>
