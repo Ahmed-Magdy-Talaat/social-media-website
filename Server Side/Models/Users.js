@@ -34,12 +34,13 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "",
     },
-
-    imageUrl: {
-      type: String,
-      default: "",
+    image: {
+      type: {
+        id: String,
+        url: String,
+      },
+      default: { id: "", url: "" },
     },
-
     saves: {
       type: [
         {
@@ -48,11 +49,6 @@ const userSchema = mongoose.Schema(
         },
       ],
       default: [],
-    },
-
-    imageId: {
-      type: String,
-      default: "",
     },
   },
   { timestamps: true }

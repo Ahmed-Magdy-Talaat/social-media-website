@@ -24,13 +24,9 @@ const postSchema = mongoose.Schema(
       type: [String],
       default: [],
     },
-    imageUrl: {
-      type: String,
-      default: "",
-    },
-
-    ImageId: {
-      type: String,
+    image: {
+      id: String,
+      url: String,
     },
   },
   {

@@ -1,17 +1,29 @@
 import express from "express";
 import * as pc from "../Controllers/postController.js";
-
+import cloudinary from "../utils/Cloudinary.js";
+import { fileUpload } from "../utils/fileUpload.js";
+import { verifyAuthenication } from "../Middlewars/authenication.js";
 const router = express.Router();
 
 router
   .route("/")
-  .post(pc.createPost)
-  .get(pc.getPostFeeds)
-  .patch(pc.updatePostLikes);
+  .get(verifyAuthenication, pc.getPostFeeds)
+  .patch(verifyAuthenication, pc.updatePostLikes);
 
-router.route("/:id").put(pc.updatePost).delete(pc.deletePost);
+router.delete("/:id", verifyAuthenication, pc.deletePost);
 
-router.route("/search").get(pc.getPostById);
-router.route("/user").get(pc.getPostsforUser);
-router.route("/comment").post(pc.addNewComment);
+router.get("/search", verifyAuthenication, pc.getPostById);
+router.get("/user", verifyAuthenication, pc.getPostsforUser);
+router.post(
+  "/",
+  verifyAuthenication,
+  fileUpload().single("photo"),
+  pc.createPost
+);
+router.put(
+  "/:id",
+  verifyAuthenication,
+  fileUpload().single("photo"),
+  pc.updatePost
+);
 export default router;

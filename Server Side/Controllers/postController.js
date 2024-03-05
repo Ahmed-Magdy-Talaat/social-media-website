@@ -3,74 +3,78 @@ import { handleError } from "./shared/sharedFunctions.js";
 import Comment from "../Models/Comments.js";
 import Save from "../Models/Saves.js";
 import User from "../Models/Users.js";
-import { uploadStream } from "../utils/Cloudinary.js";
+import cloudinary from "../utils/Cloudinary.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-export const createPost = async (req, res) => {
+export const createPost = asyncHandler(async (req, res) => {
   const id = req.user.id;
   const { caption, tags, comments, likes } = req.body;
-  const imageUrl = await uploadStream(req.file.buffer);
-  try {
-    console.log("Uploaded image:", imageUrl);
-
-    const newPost = new Post({
-      creator: id,
-      caption,
-      tags,
-      comments,
-      likes,
-      imageUrl,
-    });
-
-    console.log("New post:", newPost);
-
-    const post = await newPost.save();
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        post,
-      },
-    });
-  } catch (error) {
-    console.error("Error creating post:", error);
-    handleError(res, error);
+  let image = {};
+  if (req.file) {
+    const { public_id, secure_url } = await cloudinary.uploader.upload(
+      req.file.path,
+      {
+        folder: `${process.env.CLOUD_FOLDER}/posts/${req.user.userName}`,
+        transformation: {
+          width: 700, // Width of the transformed image
+          height: 500, // Height of the transformed image
+          crop: "fill", // Crop mode ("fill" crops to fit dimensions exactly)
+          quality: "auto:best", // Quality of the transformed image
+        },
+      }
+    );
+    image = {
+      url: secure_url,
+      id: public_id,
+    };
   }
-};
+  if (!req.file) return next(new Error("Image is required", { cause: 400 }));
 
-export const getPostFeeds = async (req, res) => {
-  try {
-    const data = await Post.find().populate("creator");
-    const posts = data.slice().reverse();
-    res.status(200).json({
-      status: "success",
-      data: { posts },
-    });
-  } catch (err) {
-    console.log(err);
-    handleError(res, err);
-  }
-};
+  const newPost = new Post({
+    creator: id,
+    caption,
+    tags,
+    comments,
+    likes,
+    image,
+  });
+
+  const post = await newPost.save();
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      post,
+    },
+  });
+});
+
+export const getPostFeeds = asyncHandler(async (req, res) => {
+  const data = await Post.find().populate("creator");
+  const posts = data.slice().reverse();
+  res.status(200).json({
+    status: "success",
+    data: { posts },
+  });
+});
 
 //
-export const getPostById = async (req, res) => {
+export const getPostById = asyncHandler(async (req, res, next) => {
   const id = req.query.id;
-
-  try {
-    const post = await Post.findById(id).populate("creator");
-    res.status(200).json({
-      status: "success",
-      data: { post },
-    });
-  } catch (err) {
-    handleError(res, err);
-  }
-};
+  const post = await Post.findById(id).populate("creator");
+  res.status(200).json({
+    status: "success",
+    data: { post },
+  });
+});
 
 export const getPostsforUser = async (req, res) => {
   const id = req.query.userId;
 
   try {
-    const posts = await Post.find({ creator: id });
+    const posts = await Post.find({ creator: id }).populate("creator");
     res.status(200).json({
       status: "success",
       data: { posts },
@@ -81,174 +85,132 @@ export const getPostsforUser = async (req, res) => {
 };
 
 //update post likes
-export const updatePostLikes = async (req, res) => {
+export const updatePostLikes = asyncHandler(async (req, res) => {
   const postId = req.query.id;
   const userId = req.user.id;
+  const post = await Post.findById(postId);
 
-  try {
-    const post = await Post.findById(postId);
-
-    if (!post) {
-      return res.status(404).json({
-        status: "error",
-        message: "Post not found",
-      });
-    }
-
-    // Check if userId is defined
-    if (userId) {
-      const isLiked = post.likes.get(userId);
-
-      if (isLiked) {
-        post.likes.delete(userId);
-      } else {
-        post.likes.set(userId, true);
-      }
-      // Save the updated post
-      const updatedPost = await Post.findByIdAndUpdate(
-        postId,
-        { likes: post.likes },
-        { new: true }
-      );
-
-      return res.status(200).json({
-        status: "success",
-        data: { post: updatedPost },
-      });
-    } else {
-      return res.status(400).json({
-        status: "error",
-        message: "UserId is required",
-      });
-    }
-  } catch (err) {
-    // Handle other errors
-    console.error(err);
-    return res.status(500).json({
-      status: "error",
-      message: err.message,
-    });
+  if (!post) {
+    return next(new Error("post is not found", { cause: 404 }));
   }
-};
 
-export const updatePost = async (req, res) => {
+  // Check if userId is defined
+  if (userId) {
+    const isLiked = post.likes.get(userId);
+
+    if (isLiked) {
+      post.likes.delete(userId);
+    } else {
+      post.likes.set(userId, true);
+    }
+    // Save the updated post
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      { likes: post.likes },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      status: "success",
+      data: { post: updatedPost },
+    });
+  } else {
+    return next(new Error("User Id is required", { cause: 400 }));
+  }
+});
+
+export const updatePost = async (req, res, next) => {
   const { caption, tags } = req.body;
   const id = req.params.id;
-  console.log(id);
-  let imageUrl = "";
-  if (req.file) imageUrl = await uploadStream(req.file.buffer);
 
-  try {
-    let post;
-    if (imageUrl !== "") {
-      post = await Post.findByIdAndUpdate(
-        id,
-        {
-          $set: {
-            caption,
-            imageUrl,
-            tags,
-          },
+  const post = await Post.findById(id);
+  console.log(post.creator);
+  if (req.user._id != post.creator.toString())
+    return next(
+      new Error("You are not authorized to update this post", { cause: 403 })
+    );
+
+  if (req.file) {
+    console.log("hey");
+    await cloudinary.uploader.destroy(post.image.id);
+    const { public_id, secure_url } = await cloudinary.uploader.upload(
+      req.file.path,
+      {
+        folder: `${process.env.CLOUD_FOLDER}/posts/${req.user.userName}`,
+        transformation: {
+          width: 700,
+          height: 500,
+          crop: "fill", // You can adjust the crop mode as needed
+          quality: "auto:best",
         },
-        { new: true } // Return the updated document
-      );
-    } else {
-      post = await Post.findByIdAndUpdate(
-        id,
-        {
-          $set: {
-            caption,
-            tags,
-          },
-        },
-        { new: true }
-      );
-    }
-    if (post) {
-      res.status(200).json({
-        status: "success",
-        post,
-      });
-    } else {
-      res.status(404).json({
-        status: "failed",
-        message: "post not found",
-      });
-    }
-  } catch (err) {
-    handleError(res, err);
+      }
+    );
+    post.image = {
+      id: public_id,
+      url: secure_url,
+    };
   }
+
+  if (caption) post.caption = caption;
+  if (tags) post.tags = tags;
+
+  //save the post
+  await post.save();
+
+  res.status(200).json({
+    status: "success",
+    data: { post },
+  });
 };
 //
 
-export const deletePost = async (req, res) => {
+export const deletePost = asyncHandler(async (req, res) => {
   const postId = req.params.id;
+  // Delete the post
+  const deletedPost = await Post.findOneAndDelete({ _id: postId });
 
-  try {
-    // Delete the post
-    const deletedPost = await Post.findOneAndDelete({ _id: postId });
+  if (!deletedPost) return next(new Error(`Post is not found`, { cause: 404 }));
 
-    if (!deletedPost) {
-      return res.status(404).json({
-        status: "fail",
-        data: {
-          message: "Post not found",
-        },
-      });
-    }
+  await Save.findOneAndDelete({ _id: postId });
+  await User.updateMany({ saves: postId }, { $pull: { saves: postId } });
 
-    await Save.findOneAndDelete({ _id: postId });
-    await User.updateMany({ saves: postId }, { $pull: { saves: postId } });
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        message: "Post deleted successfully",
-        deletedPost,
-      },
-    });
-  } catch (err) {
-    handleError(res, err);
-  }
-};
+  res.status(200).json({
+    status: "success",
+    data: {
+      message: "Post deleted successfully",
+      deletedPost,
+    },
+  });
+});
 
 //
-export const addNewComment = async (req, res) => {
+export const addNewComment = asyncHandler(async (req, res) => {
   const userId = req.params.user;
   const postId = req.query.id;
   const { content } = req.params;
-  try {
-    const newComment = new Comment({
-      user: userId,
-      post: postId,
-      content,
-    });
+  const newComment = new Comment({
+    user: userId,
+    post: postId,
+    content,
+  });
 
-    const savedComment = await newComment.save();
-    res.status(200).json({
-      status: "success",
-      data: {
-        comment: savedComment,
-      },
-    });
-  } catch (err) {
-    handleError(res, err);
-  }
-};
+  const savedComment = await newComment.save();
+  res.status(200).json({
+    status: "success",
+    data: {
+      comment: savedComment,
+    },
+  });
+});
 
-export const getCommentsForPost = async (req, res) => {
+export const getCommentsForPost = asyncHandler(async (req, res) => {
   const postId = req.query.id;
-
-  try {
-    const comments = await Comment.find({ post: postId }).populate("user");
-    res.status(200).json({
-      status: "success",
-      data: { comments },
-    });
-  } catch (err) {
-    handleError(res, err);
-  }
-};
+  const comments = await Comment.find({ post: postId }).populate("user");
+  res.status(200).json({
+    status: "success",
+    data: { comments },
+  });
+});
 
 export const deleteComment = async (req, res) => {
   const id = req.query.id;
