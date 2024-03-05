@@ -20,15 +20,22 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
-const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "https://social-media-website-beta.vercel.app",
-  ],
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
+onst allowedOrigins = [
+  "http://localhost:5173",
+  "https://social-media-website-beta.vercel.app"
+];
 
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionsSuccessStatus: 200,
+  credentials: true
+};
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(helmet());
