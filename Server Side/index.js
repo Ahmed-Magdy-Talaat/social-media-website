@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
-onst allowedOrigins = [
+const allowedOrigins = [
   "http://localhost:5173",
   "https://social-media-website-beta.vercel.app"
 ];
