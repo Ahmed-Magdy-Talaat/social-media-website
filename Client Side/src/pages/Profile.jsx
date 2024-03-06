@@ -61,7 +61,7 @@ function Profile() {
     };
 
     fetchData();
-  }, [id, user._id]); // Include dependencies from the outer scope if needed
+  }, []); // Include dependencies from the outer scope if needed
 
   const handleFollowship = async () => {
     if (isFollowing) setFollowers((a) => a - 1);
