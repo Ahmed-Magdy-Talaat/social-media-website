@@ -61,10 +61,10 @@ export const getAllFollowersAndFollowing = asyncHandler(
 
 export const checkFollowing = asyncHandler(async (req, res, next) => {
   const { follower, followed } = req.body;
-  const isMatch = await Followship.find({ follower, followed });
-
+  const isMatch = await Followship.findOne({ follower, followed });
+  console.log(isMatch);
   res.status(200).json({
     status: "success",
-    data: { follow: isMatch.length ? true : false },
+    data: { follow: isMatch ? true : false },
   });
 });
