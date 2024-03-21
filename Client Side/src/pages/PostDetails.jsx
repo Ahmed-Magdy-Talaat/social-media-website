@@ -84,6 +84,7 @@ function PostDetails() {
                 )}
 
                 <div className="flex-center gap-4">
+                  {user?._id === post.creator?._id && (
                   <img
                     className="cursor-pointer"
                     src={"/assets/icons/delete.svg"}
@@ -91,7 +92,7 @@ function PostDetails() {
                     width={24}
                     height={24}
                     onClick={handleDelete}
-                  />
+                  />)}
                 </div>
               </div>
             </div>
