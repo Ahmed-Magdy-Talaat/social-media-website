@@ -29,7 +29,7 @@ function Profile() {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
-      setIsFollowing(true);
+    //  setIsFollowing(true);
 
       try {
         // console.log("in");
@@ -119,7 +119,8 @@ function Profile() {
               </Link>
             ) : (
               <div onClick={handleFollowship}>
-                {isFollowing ? (
+                { !isFollowing ? (
+                
                   <div className="h-12 bg-primary-500 cursor-pointer px-5 text-light-1 flex-center gap-2 rounded-lg">
                     <img
                       src="/assets/icons/follow.svg"
